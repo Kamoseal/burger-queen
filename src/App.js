@@ -81,7 +81,6 @@ class App extends Component {
   handleAdd = (index) => {
     let { menu } = this.state;
     menu[index].quantity = menu[index].quantity + 1;
-    
     this.setState({menu})
   }
 
@@ -91,13 +90,46 @@ class App extends Component {
     this.setState({menu})
   }
 
+  handleAddCO = (id) => {
+    console.log(id)
+    let { menu } = this.state;
+    let newMenu = []
+    menu.forEach((element) => {
+      if(element.id === id){
+        element.quantity = element.quantity + 1
+        newMenu.push(element)
+      }
+      else {
+        newMenu.push(element)
+      }
+    })
+    this.setState({menu: newMenu})
+  }
+
+  handleMinusCO = (id) => {
+    console.log(id)
+    let { menu } = this.state;
+    let newMenu = []
+    menu.forEach((element) => {
+      if(element.id === id){
+        element.quantity = element.quantity - 1
+        newMenu.push(element)
+      }
+      else {
+        newMenu.push(element)
+      }
+    })
+    this.setState({menu: newMenu})
+  
+  }
+
   render() {
     return (
       <div>
         <NavBar />
         <Switch>
           <Route component={Home} path="/" exact />
-          <Route render={()=><Checkout menu={this.state.menu}/>} path="/checkout" />
+          <Route render={()=><Checkout menu={this.state.menu} handleMinusCO={this.handleMinusCO} handleAddCO={this.handleAddCO}/>} path="/checkout" />
           <Route render={()=><Menu menu={this.state.menu}  handleMinus={this.handleMinus} handleAdd={this.handleAdd}/>} path="/menu" />
         </Switch>
       </div>

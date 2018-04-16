@@ -38,10 +38,14 @@ class Checkout extends Component {
 
                     <tbody>
                         {cart.map((item, i) =>
-                            <tr>
+                            <tr key={i}>
                                 <td>{item.title}</td>
                                 <td>{item.price}</td>
-                                <td>{item.quantity}</td>
+                                <td>
+                                    <a className="waves-effect waves-light orange darken-4 btn" onClick={ () => this.props.handleMinusCO(item.id)}>-</a>
+                                    {item.quantity}
+                                    <a className="waves-effect waves-light orange darken-4 btn" onClick={ () => this.props.handleAddCO(item.id)}>+</a>
+                                </td>
                                 <td>{item.price * item.quantity}</td>
                             </tr>
                         )}
